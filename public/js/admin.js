@@ -3582,6 +3582,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
 
     return {
+      adminAvatar: _config__WEBPACK_IMPORTED_MODULE_1__["default"].hostUrl + '/laravue.png',
       formLabelWidth: '150px',
       dialogChangePasswordFormVisible: false,
       changePasswordForm: {
@@ -71055,7 +71056,9 @@ var render = function() {
                     { key: bc.path, attrs: { to: { path: bc.path } } },
                     [
                       _vm._v(
-                        " " + _vm._s(_vm.$t("meta.title." + bc.meta.title))
+                        " " +
+                          _vm._s(_vm.$t("meta.title." + bc.meta.title)) +
+                          "\n                "
                       )
                     ]
                   )
@@ -71078,8 +71081,7 @@ var render = function() {
                       _c("img", {
                         staticStyle: { "border-radius": "30px" },
                         attrs: {
-                          src:
-                            "http://blog-image.moell.cn/avatars/wxspzIISH98xMRzV68phGyxsEWPY6mnsBtYxRGP8.jpeg",
+                          src: _vm.adminAvatar,
                           width: "30",
                           height: "30"
                         }
@@ -71094,26 +71096,6 @@ var render = function() {
                       "el-dropdown-menu",
                       { attrs: { slot: "dropdown" }, slot: "dropdown" },
                       [
-                        _vm.showAuthorGitHubUrl
-                          ? _c(
-                              "a",
-                              {
-                                attrs: {
-                                  href: "https://github.com/moell-peng/mojito",
-                                  target: "_blank"
-                                }
-                              },
-                              [
-                                _c("el-dropdown-item", [
-                                  _vm._v(
-                                    "\n                Github\n              "
-                                  )
-                                ])
-                              ],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
                         _c(
                           "el-dropdown-item",
                           {
@@ -71123,7 +71105,12 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("changePassword")) + " ")]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("changePassword")) +
+                                "\n                        "
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c(
@@ -71135,7 +71122,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Logout")]
+                          [_vm._v("退 出")]
                         )
                       ],
                       1
@@ -71332,10 +71319,18 @@ var render = function() {
           _c("div", { staticClass: "logo" }, [
             !_vm.isCollapse
               ? _c("div", { staticClass: "normal" }, [
-                  _vm._v("\n        " + _vm._s(_vm.fullName) + "\n      ")
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.fullName) +
+                      "\n            "
+                  )
                 ])
               : _c("div", { staticClass: "mini" }, [
-                  _vm._v("\n        " + _vm._s(_vm.abbrName) + "\n      ")
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.abbrName) +
+                      "\n            "
+                  )
                 ])
           ]),
           _vm._v(" "),
@@ -71572,7 +71567,9 @@ var render = function() {
                 ? _c("i", { staticClass: "el-icon-star-on" })
                 : _vm._e(),
               _vm._v(
-                " " + _vm._s(_vm.$t("meta.title." + tag.title)) + "\n      "
+                " " +
+                  _vm._s(_vm.$t("meta.title." + tag.title)) +
+                  "\n            "
               )
             ]
           )
@@ -88279,7 +88276,7 @@ __webpack_require__.r(__webpack_exports__);
       fullName: '多乐后台管理',
       abbrName: '多乐'
     },
-    locale: 'en'
+    locale: 'zh'
   },
   guardNames: [{
     label: 'admin',
@@ -88290,7 +88287,8 @@ __webpack_require__.r(__webpack_exports__);
   tokenTTL: 1,
   //Unit is day
   refreshTokenTTL: 7,
-  showAuthorGitHubUrl: true
+  showAuthorGitHubUrl: true,
+  hostUrl: location.protocol + '//' + window.location.host
 });
 
 /***/ }),
@@ -88418,7 +88416,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   meta: {
     title: {
-      dashboard: 'Dashboard',
+      dashboard: '仪表盘',
       adminUser: '管理员用户',
       home: '首页',
       role: '角色',
@@ -88919,7 +88917,7 @@ __webpack_require__.r(__webpack_exports__);
       permission: 'admin-user.index'
     },
     component: function component(resolve) {
-      return void __webpack_require__.e(/*! AMD require */ 3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/user/index.vue */ "./resources/js/views/admin/user/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e(/*! AMD require */ 2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/user/index.vue */ "./resources/js/views/admin/user/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
     }
   }, {
     path: 'role',
@@ -88938,7 +88936,7 @@ __webpack_require__.r(__webpack_exports__);
         permission: 'role.assign-permissions'
       },
       component: function component(resolve) {
-        return void __webpack_require__.e(/*! AMD require */ 5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/role/permission.vue */ "./resources/js/views/admin/role/permission.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
+        return void __webpack_require__.e(/*! AMD require */ 4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/role/permission.vue */ "./resources/js/views/admin/role/permission.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
       }
     }, {
       name: 'roleIndex',
@@ -88950,7 +88948,7 @@ __webpack_require__.r(__webpack_exports__);
         permission: 'role.index'
       },
       component: function component(resolve) {
-        return void __webpack_require__.e(/*! AMD require */ 4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/role/index.vue */ "./resources/js/views/admin/role/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
+        return void __webpack_require__.e(/*! AMD require */ 3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/role/index.vue */ "./resources/js/views/admin/role/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
       }
     }]
   }, {
@@ -88975,7 +88973,7 @@ __webpack_require__.r(__webpack_exports__);
       permission: 'permission-group.index'
     },
     component: function component(resolve) {
-      return void __webpack_require__.e(/*! AMD require */ 2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/permission-group/index.vue */ "./resources/js/views/admin/permission-group/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e(/*! AMD require */ 5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/permission-group/index.vue */ "./resources/js/views/admin/permission-group/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
     }
   }, {
     name: 'menuIndex',
@@ -88987,14 +88985,14 @@ __webpack_require__.r(__webpack_exports__);
       permission: 'menu.index'
     },
     component: function component(resolve) {
-      return void __webpack_require__.e(/*! AMD require */ 6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/menu/index.vue */ "./resources/js/views/admin/menu/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
+      return void __webpack_require__.e(/*! AMD require */ 0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/menu/index.vue */ "./resources/js/views/admin/menu/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
     }
   }]
 }, {
   name: 'adminLogin',
   path: '/admin/login',
   component: function component(resolve) {
-    return void __webpack_require__.e(/*! AMD require */ 0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/login/index.vue */ "./resources/js/views/admin/login/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
+    return void __webpack_require__.e(/*! AMD require */ 6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! ../views/admin/login/index.vue */ "./resources/js/views/admin/login/index.vue")]; (resolve).apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__);}.bind(this)).catch(__webpack_require__.oe);
   }
 }]);
 
