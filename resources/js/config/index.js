@@ -1,37 +1,39 @@
 export default {
-  admin: {
-    authorize: {
-      clientId: 2,
-      clientSecret: 'oZcUFG1MRU73yW4DAOaVkJrUNCoRYjOk2zn8AmXD'
+    admin: {
+        authorize: {
+            clientId: 2,
+            clientSecret: 'oZcUFG1MRU73yW4DAOaVkJrUNCoRYjOk2zn8AmXD'
+        },
+        loginRouteName: 'adminLogin',
+
+        dashboardName: 'adminDashboard',
+
+        dashboardFullPath: '/admin/dashboard',
+
+        appName: {
+            fullName: '多乐后台管理',
+            abbrName: '多乐'
+        },
+
+        locale: 'zh'
     },
-    loginRouteName: 'adminLogin',
 
-    dashboardName: 'adminDashboard',
+    guardNames: [
+        {
+            label: 'admin',
+            value: 'admin'
+        }
+    ],
 
-    dashboardFullPath: '/admin/dashboard',
+    apiUrl: '',
 
-    appName: {
-      fullName: '多乐后台管理',
-      abbrName: '多乐'
-    },
+    //Unit is day
+    tokenTTL: 1,
 
-    locale: 'en'
-  },
+    //Unit is day
+    refreshTokenTTL: 7,
 
-  guardNames: [
-    {
-      label: 'admin',
-      value: 'admin'
-    }
-  ],
+    showAuthorGitHubUrl: true,
 
-  apiUrl: '',
-
-  //Unit is day
-  tokenTTL: 1,
-
-  //Unit is day
-  refreshTokenTTL: 7,
-
-  showAuthorGitHubUrl: true,
+    hostUrl: location.protocol + '//' + window.location.host,
 }
