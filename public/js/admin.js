@@ -3711,7 +3711,6 @@ __webpack_require__.r(__webpack_exports__);
 
     Object(_api_menu__WEBPACK_IMPORTED_MODULE_1__["myMenu"])().then(function (response) {
       _this.menuItems = response.data.data;
-      console.log(_this.menuItems);
     });
   },
   methods: {},
@@ -3857,7 +3856,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           tagList.push(index);
         }
       });
-      console.log(this.$route.matched);
       this.$store.commit('CLOSE_TAG_HANDLE', tagList);
       this.$router.push({
         path: this.$config[this.$provider].dashboardFullPath
@@ -88275,7 +88273,7 @@ __webpack_require__.r(__webpack_exports__);
   admin: {
     authorize: {
       clientId: 2,
-      clientSecret: 'oZcUFG1MRU73yW4DAOaVkJrUNCoRYjOk2zn8AmXD'
+      clientSecret: '5GEuFn30gM0sEW1QdhknBzoctqIgFgyRzRQq6rTc'
     },
     loginRouteName: 'adminLogin',
     dashboardName: 'adminDashboard',

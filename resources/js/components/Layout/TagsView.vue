@@ -67,8 +67,6 @@
                     }
                 })
 
-                console.log(this.$route.matched)
-
                 this.$store.commit('CLOSE_TAG_HANDLE', tagList)
                 this.$router.push({path: this.$config[this.$provider].dashboardFullPath})
             },
