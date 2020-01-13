@@ -1,7 +1,7 @@
 <template>
     <div id="login">
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px"
-                 class="login-container">
+                 class="login-container" @keyup.native.enter="submitForm('ruleForm')">
             <h2>后台管理</h2>
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="ruleForm.username" auto-complete="off"></el-input>

@@ -3490,8 +3490,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config */ "./resources/js/config/index.js");
-/* harmony import */ var _api_changePassword__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/changePassword */ "./resources/js/api/changePassword.js");
-/* harmony import */ var _libs_notify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../libs/notify */ "./resources/js/libs/notify.js");
+/* harmony import */ var _libs_notify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../libs/notify */ "./resources/js/libs/notify.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3559,7 +3558,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
 
 
 
@@ -3631,8 +3629,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$refs['changePasswordForm'].validate(function (valid) {
         if (valid) {
-          Object(_api_changePassword__WEBPACK_IMPORTED_MODULE_2__["changePassword"])(_this2.changePasswordForm).then(function (response) {
-            _libs_notify__WEBPACK_IMPORTED_MODULE_3__["default"].editSuccess(_this2);
+          _this2.$http.patch('api/user-change-password', _this2.changePasswordForm).then(function (response) {
+            _libs_notify__WEBPACK_IMPORTED_MODULE_2__["default"].editSuccess(_this2);
             _this2.dialogChangePasswordFormVisible = false;
 
             _this2.$refs['changePasswordForm'].resetFields();
@@ -87554,6 +87552,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./config */ "./resources/js/config/index.js");
+/* harmony import */ var _libs_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./libs/http */ "./resources/js/libs/http.js");
+
 
 
 
@@ -87573,6 +87573,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$config = _config__WEBPACK_IMPORTED_MODULE_10__["default"];
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$provider = 'admin';
 _lang__WEBPACK_IMPORTED_MODULE_2__["default"].locale = _config__WEBPACK_IMPORTED_MODULE_10__["default"][vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$provider].locale ? _config__WEBPACK_IMPORTED_MODULE_10__["default"][vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$provider].locale : 'en';
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = _libs_http__WEBPACK_IMPORTED_MODULE_11__["default"];
 /* eslint-disable no-new */
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -87584,56 +87585,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     return h(_Admin_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
   }
 });
-
-/***/ }),
-
-/***/ "./resources/js/api/changePassword.js":
-/*!********************************************!*\
-  !*** ./resources/js/api/changePassword.js ***!
-  \********************************************/
-/*! exports provided: changePassword */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changePassword", function() { return changePassword; });
-/* harmony import */ var _libs_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs/http */ "./resources/js/libs/http.js");
-
-var changePassword = function changePassword(params) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].patch('api/user-change-password', params);
-};
-
-/***/ }),
-
-/***/ "./resources/js/api/login.js":
-/*!***********************************!*\
-  !*** ./resources/js/api/login.js ***!
-  \***********************************/
-/*! exports provided: login, logout */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
-/* harmony import */ var _libs_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs/http */ "./resources/js/libs/http.js");
-
-var login = function login(_ref) {
-  var username = _ref.username,
-      password = _ref.password,
-      clientId = _ref.clientId,
-      clientSecret = _ref.clientSecret,
-      provider = _ref.provider;
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/oauth/token', {
-    username: username,
-    password: password,
-    provider: provider,
-    grant_type: 'password',
-    client_id: clientId,
-    client_secret: clientSecret
-  });
-};
-var logout = function logout() {};
 
 /***/ }),
 
@@ -88275,15 +88226,20 @@ __webpack_require__.r(__webpack_exports__);
       clientId: 2,
       clientSecret: '5GEuFn30gM0sEW1QdhknBzoctqIgFgyRzRQq6rTc'
     },
+    // provider 为 admin 时登录路由名
     loginRouteName: 'adminLogin',
+    // provider 为 admin 初始页面路由
     dashboardName: 'adminDashboard',
+    // provider 为 admin 初始页面完全路径
     dashboardFullPath: '/admin/dashboard',
+    // 项目全名 和 项目缩写名
     appName: {
       fullName: '多乐后台管理',
       abbrName: '多乐'
     },
     locale: 'zh'
   },
+  // 支持多表登录时，guard 键值对
   guardNames: [{
     label: 'admin',
     value: 'admin'
@@ -89095,8 +89051,8 @@ var actions = {};
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _api_login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/login */ "./resources/js/api/login.js");
-/* harmony import */ var _libs_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../libs/auth */ "./resources/js/libs/auth.js");
+/* harmony import */ var _libs_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../libs/auth */ "./resources/js/libs/auth.js");
+/* harmony import */ var _libs_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../libs/http */ "./resources/js/libs/http.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -89127,7 +89083,6 @@ var mutations = {
 };
 var actions = {
   loginHandle: function loginHandle(_ref2, _ref3) {
-    var _arguments = arguments;
     var commit = _ref2.commit;
     var username = _ref3.username,
         password = _ref3.password,
@@ -89135,7 +89090,14 @@ var actions = {
         clientSecret = _ref3.clientSecret,
         provider = _ref3.provider;
     return new Promise(function (resolve, reject) {
-      return Object(_api_login__WEBPACK_IMPORTED_MODULE_0__["login"])(_arguments[1]).then(function (response) {
+      return _libs_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/oauth/token', {
+        username: username,
+        password: password,
+        provider: provider,
+        grant_type: 'password',
+        client_id: clientId,
+        client_secret: clientSecret
+      }).then(function (response) {
         var token = _objectSpread({}, response.data, {
           created_at: new Date().getTime()
         });
@@ -89144,7 +89106,7 @@ var actions = {
           token: token,
           provider: provider
         });
-        resolve(Object(_libs_auth__WEBPACK_IMPORTED_MODULE_1__["setToken"])(token, provider));
+        resolve(Object(_libs_auth__WEBPACK_IMPORTED_MODULE_0__["setToken"])(token, provider));
       })["catch"](function (error) {
         reject(error);
       });
@@ -89153,7 +89115,7 @@ var actions = {
   logoutHandle: function logoutHandle(_ref4, provider) {
     var commit = _ref4.commit;
     return new Promise(function (resolve, reject) {
-      Object(_libs_auth__WEBPACK_IMPORTED_MODULE_1__["removeToken"])(provider);
+      Object(_libs_auth__WEBPACK_IMPORTED_MODULE_0__["removeToken"])(provider);
     });
   }
 };

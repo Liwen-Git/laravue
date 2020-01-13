@@ -10,14 +10,17 @@ import App from './Admin.vue';
 import router from './router'
 import store from './store'
 import config from './config'
+import http from './libs/http'
 
 Vue.use(ElementUI, {
     i18n: (key, value) => i18n.t(key, value)
-})
+});
 
-Vue.prototype.$config = config
-Vue.prototype.$provider = 'admin'
-i18n.locale = config[Vue.prototype.$provider].locale ? config[Vue.prototype.$provider].locale : 'en'
+Vue.prototype.$config = config;
+Vue.prototype.$provider = 'admin';
+i18n.locale = config[Vue.prototype.$provider].locale ? config[Vue.prototype.$provider].locale : 'en';
+
+Vue.prototype.$http = http;
 
 /* eslint-disable no-new */
 const app = new Vue({

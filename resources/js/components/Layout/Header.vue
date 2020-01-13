@@ -62,7 +62,6 @@
 <script>
     import {mapActions} from 'vuex'
     import config from '../../config'
-    import {changePassword} from '../../api/changePassword'
     import notify from '../../libs/notify'
 
     export default {
@@ -124,7 +123,7 @@
             handleChangePassword() {
                 this.$refs['changePasswordForm'].validate((valid) => {
                     if (valid) {
-                        changePassword(this.changePasswordForm).then(response => {
+                        this.$http.patch('api/user-change-password', this.changePasswordForm).then(response => {
                             notify.editSuccess(this)
                             this.dialogChangePasswordFormVisible = false
                             this.$refs['changePasswordForm'].resetFields()

@@ -164,6 +164,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -390,7 +396,13 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v(_vm._s(_vm.$t("add")))]
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.$t("add")) +
+                          "\n            "
+                      )
+                    ]
                   )
                 : _vm._e()
             ],
@@ -453,7 +465,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("edit")))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("edit")) + "\n                "
+                            )
+                          ]
                         )
                       : _vm._e(),
                     _vm._v(" "),
@@ -473,7 +489,10 @@ var render = function() {
                       [
                         _vm.assignPermission
                           ? _c("el-button", { attrs: { size: "mini" } }, [
-                              _vm._v(_vm._s(_vm.$t("assignPermission")))
+                              _vm._v(
+                                _vm._s(_vm.$t("assignPermission")) +
+                                  "\n                    "
+                              )
                             ])
                           : _vm._e()
                       ],
@@ -491,7 +510,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("delete")))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("delete")) + "\n                "
+                            )
+                          ]
                         )
                       : _vm._e()
                   ]

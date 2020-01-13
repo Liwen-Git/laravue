@@ -214,6 +214,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -299,9 +304,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       this.loading = true;
-      Object(_api_adminUser__WEBPACK_IMPORTED_MODULE_0__["getAdminUserList"])(_objectSpread({}, this.queryParams, {
-        page: this.queryPage
-      })).then(function (response) {
+      this.$http.get('/api/admin-user', {
+        params: _objectSpread({}, this.queryParams, {
+          page: this.queryPage
+        })
+      }).then(function (response) {
         Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["responseDataFormat"])(response, _this2);
       });
     },
@@ -310,7 +317,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$refs['addForm'].validate(function (valid) {
         if (valid) {
-          Object(_api_adminUser__WEBPACK_IMPORTED_MODULE_0__["addAdminUser"])(_this3.addForm).then(function (response) {
+          _this3.$http.post('/api/admin-user', _this3.addForm).then(function (response) {
             Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["addSuccess"])(_this3);
 
             _this3.requestData();
@@ -325,7 +332,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$refs['editForm'].validate(function (valid) {
         if (valid) {
-          Object(_api_adminUser__WEBPACK_IMPORTED_MODULE_0__["editAdminUser"])(_this4.nowRowData.row.id, _this4.editForm).then(function (response) {
+          _this4.$http.patch("/api/admin-user/".concat(_this4.nowRowData.row.id), _this4.editForm).then(function (response) {
             Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["editSuccess"])(_this4);
           });
         } else {
@@ -584,7 +591,13 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v(_vm._s(_vm.$t("add")))]
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.$t("add")) +
+                          "\n            "
+                      )
+                    ]
                   )
                 : _vm._e()
             ],
@@ -643,7 +656,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("edit")))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("edit")) + "\n                "
+                            )
+                          ]
                         )
                       : _vm._e(),
                     _vm._v(" "),
@@ -658,7 +675,12 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("assignRole")))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("assignRole")) +
+                                "\n                "
+                            )
+                          ]
                         )
                       : _vm._e(),
                     _vm._v(" "),
@@ -673,7 +695,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("delete")))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("delete")) + "\n                "
+                            )
+                          ]
                         )
                       : _vm._e()
                   ]

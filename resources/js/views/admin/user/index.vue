@@ -187,14 +187,16 @@
             },
             requestData() {
                 this.loading = true
-                getAdminUserList({...this.queryParams, page: this.queryPage}).then(response => {
+                this.$http.get('/api/admin-user', {
+                    params: {...this.queryParams, page: this.queryPage}
+                }).then(response => {
                     responseDataFormat(response, this)
                 })
             },
             handleAddAdminUser() {
                 this.$refs['addForm'].validate((valid) => {
                     if (valid) {
-                        addAdminUser(this.addForm).then(response => {
+                        this.$http.post('/api/admin-user', this.addForm).then(response => {
                             addSuccess(this)
                             this.requestData()
                         })
@@ -206,7 +208,7 @@
             handleEditAdminUser() {
                 this.$refs['editForm'].validate((valid) => {
                     if (valid) {
-                        editAdminUser(this.nowRowData.row.id, this.editForm).then(response => {
+                        this.$http.patch(`/api/admin-user/${this.nowRowData.row.id}`, this.editForm).then(response => {
                             editSuccess(this)
                         })
                     } else {
