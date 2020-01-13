@@ -3689,6 +3689,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3710,6 +3711,7 @@ __webpack_require__.r(__webpack_exports__);
 
     Object(_api_menu__WEBPACK_IMPORTED_MODULE_1__["myMenu"])().then(function (response) {
       _this.menuItems = response.data.data;
+      console.log(_this.menuItems);
     });
   },
   methods: {},
@@ -3719,6 +3721,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     abbrName: function abbrName() {
       return _config__WEBPACK_IMPORTED_MODULE_2__["default"][this.$provider].hasOwnProperty('appName') ? _config__WEBPACK_IMPORTED_MODULE_2__["default"][this.$provider].appName.abbrName : 'Mojito';
+    },
+    activeMenu: function activeMenu() {
+      return this.$store.getters.breadcrumb[1].path;
     }
   }
 });
@@ -5988,7 +5993,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\nhtml,body{width:100%;height:100%;}\nbody {\n  margin:0;\n}\n#app {\n  height:100%;\n}\n", ""]);
+exports.push([module.i, "\nhtml, body {\n    width: 100%;\n    height: 100%;\n}\nbody {\n    margin: 0;\n}\n#app {\n    height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -71310,6 +71315,7 @@ var render = function() {
           attrs: {
             collapse: _vm.isCollapse,
             router: true,
+            "default-active": _vm.activeMenu,
             "background-color": "#263238",
             "text-color": "#afb5bd",
             "active-text-color": "#ffffff"
@@ -71375,7 +71381,7 @@ var render = function() {
             _vm.item.icon ? _c("i", { class: _vm.item.icon }) : _vm._e(),
             _vm._v(" "),
             _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-              _vm._v("\n       " + _vm._s(_vm.item.name) + "\n    ")
+              _vm._v("\n            " + _vm._s(_vm.item.name) + "\n        ")
             ])
           ]),
           _vm._v(" "),
@@ -71387,7 +71393,9 @@ var render = function() {
                     children.icon
                       ? _c("i", { class: children.icon })
                       : _vm._e(),
-                    _vm._v("\n      " + _vm._s(children.name) + "\n    ")
+                    _vm._v(
+                      "\n            " + _vm._s(children.name) + "\n        "
+                    )
                   ])
             ]
           })

@@ -4,6 +4,7 @@
                 class="el-menu-vertical"
                 :collapse="isCollapse"
                 :router="true"
+                :default-active="activeMenu"
                 background-color="#263238"
                 text-color="#afb5bd"
                 active-text-color="#ffffff">
@@ -41,6 +42,7 @@
         created() {
             myMenu().then(response => {
                 this.menuItems = response.data.data
+                console.log(this.menuItems);
             })
         },
         methods: {},
@@ -50,6 +52,9 @@
             },
             abbrName: function () {
                 return config[this.$provider].hasOwnProperty('appName') ? config[this.$provider].appName.abbrName : 'Mojito'
+            },
+            activeMenu: function () {
+                return this.$store.getters.breadcrumb[1].path;
             }
         }
     }
