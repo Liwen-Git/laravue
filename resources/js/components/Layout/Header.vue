@@ -14,10 +14,10 @@
             <el-col :span="8">
                 <div class="avatar">
                     <el-dropdown>
-                        <el-button :plain="true">
+                        <el-button :plain="true" class="header-btn-username-cls">
                             <img :src="adminAvatar"
                                  width="30" height="30" style="border-radius:30px">
-                            <span>{{username}}</span>
+                            <span style="margin-left: 5px">{{username}}</span>
                             <i class="el-icon-arrow-down el-icon--right"></i>
                         </el-button>
                         <el-dropdown-menu slot="dropdown">
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
+    import {mapActions} from 'vuex'
     import config from '../../config'
     import notify from '../../libs/notify'
     import {getUsername} from "../../libs/auth";
@@ -184,5 +184,16 @@
 
     a {
         text-decoration: none;
+    }
+</style>
+
+<style>
+    .header-btn-username-cls {
+        padding-right: 0px;
+    }
+    .header-btn-username-cls span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
