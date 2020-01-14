@@ -110,7 +110,6 @@
 </template>
 
 <script>
-    import {getAdminUserList, addAdminUser, editAdminUser, deleteAdminUser} from '../../../api/adminUser'
     import {
         responseDataFormat,
         tableDefaultData,
@@ -180,9 +179,9 @@
                 this.dialogEditFormVisible = true
             },
             handleDelete(index, row) {
-                deleteAdminUser(row.id).then(response => {
-                    deleteSuccess(index, this)
-                    this.requestData()
+                this.$http.delete(`/api/admin-user/${row.id}`).then(response => {
+                    deleteSuccess(index, this);
+                    this.requestData();
                 })
             },
             requestData() {
@@ -197,8 +196,8 @@
                 this.$refs['addForm'].validate((valid) => {
                     if (valid) {
                         this.$http.post('/api/admin-user', this.addForm).then(response => {
-                            addSuccess(this)
-                            this.requestData()
+                            addSuccess(this);
+                            this.requestData();
                         })
                     } else {
                         return false;

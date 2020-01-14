@@ -10,7 +10,6 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libs_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../libs/util */ "./resources/js/libs/util.js");
-/* harmony import */ var _api_menu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/menu */ "./resources/js/api/menu.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -29,7 +28,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MenuCascader',
@@ -61,8 +59,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       var _this = this;
 
       if (this.guardName) {
-        Object(_api_menu__WEBPACK_IMPORTED_MODULE_1__["getMenuList"])({
-          'guard_name': this.guardName
+        this.$http.get('/api/menu', {
+          params: {
+            'guard_name': this.guardName
+          }
         }).then(function (response) {
           _this.options = response.data.data;
         });
@@ -150,7 +150,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Select_Guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/Select/Guard */ "./resources/js/components/Select/Guard.vue");
-/* harmony import */ var _api_menu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../api/menu */ "./resources/js/api/menu.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../libs/tableDataHandle */ "./resources/js/libs/tableDataHandle.js");
 /* harmony import */ var _components_Cascader_Menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/Cascader/Menu */ "./resources/js/components/Cascader/Menu.vue");
 /* harmony import */ var _libs_permission__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../libs/permission */ "./resources/js/libs/permission.js");
@@ -351,7 +352,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     handleDelete: function handleDelete(index, row) {
       var _this = this;
 
-      Object(_api_menu__WEBPACK_IMPORTED_MODULE_2__["deleteMenu"])(row.id).then(function (response) {
+      this.$http["delete"]("/api/menu/".concat(row.id)).then(function () {
         Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_3__["deleteSuccess"])(index, _this);
 
         _this.requestData();
@@ -370,7 +371,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$refs['editForm'].validate(function (valid) {
         if (valid) {
-          Object(_api_menu__WEBPACK_IMPORTED_MODULE_2__["editMenu"])(_this2.nowRowData.row.id, _this2.editForm).then(function (response) {
+          _this2.$http.patch("/api/menu/".concat(_this2.nowRowData.row.id), qs__WEBPACK_IMPORTED_MODULE_2___default.a.stringify(_this2.editForm)).then(function () {
             Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_3__["editSuccess"])(_this2);
 
             _this2.requestData();
@@ -385,7 +386,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$refs['addForm'].validate(function (valid) {
         if (valid) {
-          Object(_api_menu__WEBPACK_IMPORTED_MODULE_2__["addMenu"])(_this3.addForm).then(function (response) {
+          _this3.$http.post('/api/menu', _this3.addForm).then(function () {
             Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_3__["addSuccess"])(_this3);
 
             _this3.requestData();
@@ -444,7 +445,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this5 = this;
 
       this.loading = true;
-      Object(_api_menu__WEBPACK_IMPORTED_MODULE_2__["getMenuList"])(this.queryParams).then(function (response) {
+      this.$http.get('/api/menu', {
+        params: this.queryParams
+      }).then(function (response) {
         _this5.tableListData = _this5.formatConversion([], response.data.data);
         _this5.loading = false;
       });

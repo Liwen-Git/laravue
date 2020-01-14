@@ -48,13 +48,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _api_permissionGroup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/permissionGroup */ "./resources/js/api/permissionGroup.js");
 //
 //
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PermissionGroupSelect',
   props: ['nowValue'],
@@ -67,7 +65,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    Object(_api_permissionGroup__WEBPACK_IMPORTED_MODULE_0__["getPermissionGroupAll"])().then(function (response) {
+    this.$http.get("/api/permission-group-all")().then(function (response) {
       _this.items = response.data.data;
     });
   },
@@ -92,12 +90,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _api_permission__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../api/permission */ "./resources/js/api/permission.js");
-/* harmony import */ var _libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../libs/tableDataHandle */ "./resources/js/libs/tableDataHandle.js");
-/* harmony import */ var _components_Select_Guard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/Select/Guard */ "./resources/js/components/Select/Guard.vue");
-/* harmony import */ var _components_Select_PermissionGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/Select/PermissionGroup */ "./resources/js/components/Select/PermissionGroup.vue");
-/* harmony import */ var _libs_permission__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../libs/permission */ "./resources/js/libs/permission.js");
-/* harmony import */ var _mixins_queryParams__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../mixins/queryParams */ "./resources/js/mixins/queryParams.js");
+/* harmony import */ var _libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../libs/tableDataHandle */ "./resources/js/libs/tableDataHandle.js");
+/* harmony import */ var _components_Select_Guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/Select/Guard */ "./resources/js/components/Select/Guard.vue");
+/* harmony import */ var _components_Select_PermissionGroup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/Select/PermissionGroup */ "./resources/js/components/Select/PermissionGroup.vue");
+/* harmony import */ var _libs_permission__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../libs/permission */ "./resources/js/libs/permission.js");
+/* harmony import */ var _mixins_queryParams__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../mixins/queryParams */ "./resources/js/mixins/queryParams.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -269,7 +266,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
+//
 
 
 
@@ -278,12 +278,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'permissionIndex',
   components: {
-    PermissionGroupSelect: _components_Select_PermissionGroup__WEBPACK_IMPORTED_MODULE_3__["default"],
-    GuardSelect: _components_Select_Guard__WEBPACK_IMPORTED_MODULE_2__["default"]
+    PermissionGroupSelect: _components_Select_PermissionGroup__WEBPACK_IMPORTED_MODULE_2__["default"],
+    GuardSelect: _components_Select_Guard__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mixins: [_mixins_queryParams__WEBPACK_IMPORTED_MODULE_5__["queryParams"]],
+  mixins: [_mixins_queryParams__WEBPACK_IMPORTED_MODULE_4__["queryParams"]],
   data: function data() {
-    return _objectSpread({}, Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["tableDefaultData"])(), {
+    return _objectSpread({}, Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["tableDefaultData"])(), {
       addForm: {
         name: '',
         guard_name: '',
@@ -333,8 +333,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     handleDelete: function handleDelete(index, row) {
       var _this = this;
 
-      Object(_api_permission__WEBPACK_IMPORTED_MODULE_0__["deletePermission"])(row.id).then(function (response) {
-        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["deleteSuccess"])(index, _this);
+      this.$http["delete"]("/api/permission/".concat(row.id)).then(function () {
+        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["deleteSuccess"])(index, _this);
 
         _this.requestData();
       });
@@ -343,10 +343,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       this.loading = true;
-      Object(_api_permission__WEBPACK_IMPORTED_MODULE_0__["getPermissionList"])(_objectSpread({}, this.queryParams, {
-        page: this.queryPage
-      })).then(function (response) {
-        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["responseDataFormat"])(response, _this2);
+      this.$http.get('/api/permission', {
+        params: _objectSpread({}, this.queryParams, {
+          page: this.queryPage
+        })
+      }).then(function (response) {
+        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["responseDataFormat"])(response, _this2);
       });
     },
     handleAddPermission: function handleAddPermission() {
@@ -354,8 +356,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$refs['addForm'].validate(function (valid) {
         if (valid) {
-          Object(_api_permission__WEBPACK_IMPORTED_MODULE_0__["addPermission"])(_this3.addForm).then(function (response) {
-            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["addSuccess"])(_this3);
+          _this3.$http.post('/api/permission', _this3.addForm).then(function () {
+            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["addSuccess"])(_this3);
 
             _this3.requestData();
           });
@@ -369,8 +371,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$refs['editForm'].validate(function (valid) {
         if (valid) {
-          Object(_api_permission__WEBPACK_IMPORTED_MODULE_0__["editPermission"])(_this4.nowRowData.row.id, _this4.editForm).then(function (response) {
-            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["editSuccess"])(_this4);
+          _this4.$http.patch("/api/permission/".concat(_this4.nowRowData.row.id), _this4.editForm).then(function () {
+            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["editSuccess"])(_this4);
           });
         } else {
           return false;
@@ -380,13 +382,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     updatePermission: function updatePermission() {
-      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_4__["hasPermission"])('permission.update');
+      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_3__["hasPermission"])('permission.update');
     },
     addPermission: function addPermission() {
-      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_4__["hasPermission"])('permission.store');
+      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_3__["hasPermission"])('permission.store');
     },
     deletePermission: function deletePermission() {
-      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_4__["hasPermission"])('permission.destroy');
+      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_3__["hasPermission"])('permission.destroy');
     }
   },
   created: function created() {
@@ -582,7 +584,13 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v(_vm._s(_vm.$t("add")))]
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(_vm.$t("add")) +
+                          "\n            "
+                      )
+                    ]
                   )
                 : _vm._e()
             ],
@@ -645,7 +653,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("edit")))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("edit")) + "\n                "
+                            )
+                          ]
                         )
                       : _vm._e(),
                     _vm._v(" "),
@@ -660,7 +672,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(_vm.$t("delete")))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.$t("delete")) + "\n                "
+                            )
+                          ]
                         )
                       : _vm._e()
                   ]
@@ -1281,47 +1297,6 @@ var staticRenderFns = []
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./resources/js/api/permissionGroup.js":
-/*!*********************************************!*\
-  !*** ./resources/js/api/permissionGroup.js ***!
-  \*********************************************/
-/*! exports provided: getPermissionGroupList, getPermissionGroupAll, guardNameForPermissions, addPermissionGroup, editPermissionGroup, deletePermissionGroup */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPermissionGroupList", function() { return getPermissionGroupList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPermissionGroupAll", function() { return getPermissionGroupAll; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "guardNameForPermissions", function() { return guardNameForPermissions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPermissionGroup", function() { return addPermissionGroup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editPermissionGroup", function() { return editPermissionGroup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePermissionGroup", function() { return deletePermissionGroup; });
-/* harmony import */ var _libs_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs/http */ "./resources/js/libs/http.js");
-
-var basicRoute = '/api/permission-group';
-var getPermissionGroupList = function getPermissionGroupList(params) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get(basicRoute, {
-    params: params
-  });
-};
-var getPermissionGroupAll = function getPermissionGroupAll() {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("".concat(basicRoute, "-all"));
-};
-var guardNameForPermissions = function guardNameForPermissions(guardName) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/guard-name-for-permissions/".concat(guardName));
-};
-var addPermissionGroup = function addPermissionGroup(data) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].post(basicRoute, data);
-};
-var editPermissionGroup = function editPermissionGroup(id, data) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].patch("".concat(basicRoute, "/").concat(id), data);
-};
-var deletePermissionGroup = function deletePermissionGroup(id) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("".concat(basicRoute, "/").concat(id));
-};
 
 /***/ }),
 

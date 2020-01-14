@@ -9,9 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _api_adminUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/adminUser */ "./resources/js/api/adminUser.js");
-/* harmony import */ var _api_role__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/role */ "./resources/js/api/role.js");
-/* harmony import */ var _libs_notify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../libs/notify */ "./resources/js/libs/notify.js");
+/* harmony import */ var _libs_notify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../libs/notify */ "./resources/js/libs/notify.js");
 //
 //
 //
@@ -30,8 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserAssignRole',
@@ -47,9 +44,9 @@ __webpack_require__.r(__webpack_exports__);
     assignRole: function assignRole() {
       var _this = this;
 
-      Object(_api_adminUser__WEBPACK_IMPORTED_MODULE_0__["assginRoles"])(this.userId, this.provider, this.userRoles).then(function (response) {
+      this.$http.put("/api/admin-user/".concat(this.userId, "/roles/").concat(this.provider), this.userRoles).then(function () {
         _this.visible = false;
-        _libs_notify__WEBPACK_IMPORTED_MODULE_2__["default"].editSuccess(_this);
+        _libs_notify__WEBPACK_IMPORTED_MODULE_0__["default"].editSuccess(_this);
       });
     }
   },
@@ -62,8 +59,8 @@ __webpack_require__.r(__webpack_exports__);
       this.visible = newValue;
 
       if (newValue) {
-        var guardRoles = Object(_api_role__WEBPACK_IMPORTED_MODULE_1__["guardNameRoles"])(this.guardName);
-        var userRoles = Object(_api_adminUser__WEBPACK_IMPORTED_MODULE_0__["getUserRoles"])(this.userId, this.provider);
+        var guardRoles = this.$http.get("/api/guard-name-roles/".concat(this.guardName));
+        var userRoles = this.$http.get("/api/admin-user/".concat(this.userId, "/roles/").concat(this.provider));
         Promise.all([guardRoles, userRoles]).then(function (result) {
           var roles = [];
           result[0].data.data.forEach(function (role) {
@@ -97,11 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _api_adminUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../api/adminUser */ "./resources/js/api/adminUser.js");
-/* harmony import */ var _libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../libs/tableDataHandle */ "./resources/js/libs/tableDataHandle.js");
-/* harmony import */ var _libs_permission__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../libs/permission */ "./resources/js/libs/permission.js");
-/* harmony import */ var _components_User_AssignRole__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/User/AssignRole */ "./resources/js/components/User/AssignRole.vue");
-/* harmony import */ var _mixins_queryParams__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../mixins/queryParams */ "./resources/js/mixins/queryParams.js");
+/* harmony import */ var _libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../libs/tableDataHandle */ "./resources/js/libs/tableDataHandle.js");
+/* harmony import */ var _libs_permission__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../libs/permission */ "./resources/js/libs/permission.js");
+/* harmony import */ var _components_User_AssignRole__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/User/AssignRole */ "./resources/js/components/User/AssignRole.vue");
+/* harmony import */ var _mixins_queryParams__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../mixins/queryParams */ "./resources/js/mixins/queryParams.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -223,15 +219,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'adminUserIndex',
   components: {
-    UserAssignRole: _components_User_AssignRole__WEBPACK_IMPORTED_MODULE_3__["default"]
+    UserAssignRole: _components_User_AssignRole__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  mixins: [_mixins_queryParams__WEBPACK_IMPORTED_MODULE_4__["queryParams"]],
+  mixins: [_mixins_queryParams__WEBPACK_IMPORTED_MODULE_3__["queryParams"]],
   data: function data() {
-    return _objectSpread({}, Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["tableDefaultData"])(), {
+    return _objectSpread({}, Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["tableDefaultData"])(), {
       assignRoleParams: {
         id: 0,
         guardName: 'admin',
@@ -294,8 +289,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     handleDelete: function handleDelete(index, row) {
       var _this = this;
 
-      Object(_api_adminUser__WEBPACK_IMPORTED_MODULE_0__["deleteAdminUser"])(row.id).then(function (response) {
-        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["deleteSuccess"])(index, _this);
+      this.$http["delete"]("/api/admin-user/".concat(row.id)).then(function (response) {
+        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["deleteSuccess"])(index, _this);
 
         _this.requestData();
       });
@@ -309,7 +304,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           page: this.queryPage
         })
       }).then(function (response) {
-        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["responseDataFormat"])(response, _this2);
+        Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["responseDataFormat"])(response, _this2);
       });
     },
     handleAddAdminUser: function handleAddAdminUser() {
@@ -318,7 +313,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$refs['addForm'].validate(function (valid) {
         if (valid) {
           _this3.$http.post('/api/admin-user', _this3.addForm).then(function (response) {
-            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["addSuccess"])(_this3);
+            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["addSuccess"])(_this3);
 
             _this3.requestData();
           });
@@ -333,7 +328,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$refs['editForm'].validate(function (valid) {
         if (valid) {
           _this4.$http.patch("/api/admin-user/".concat(_this4.nowRowData.row.id), _this4.editForm).then(function (response) {
-            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_1__["editSuccess"])(_this4);
+            Object(_libs_tableDataHandle__WEBPACK_IMPORTED_MODULE_0__["editSuccess"])(_this4);
           });
         } else {
           return false;
@@ -343,16 +338,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     updatePermission: function updatePermission() {
-      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_2__["hasPermission"])('admin-user.update');
+      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_1__["hasPermission"])('admin-user.update');
     },
     addPermission: function addPermission() {
-      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_2__["hasPermission"])('admin-user.store');
+      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_1__["hasPermission"])('admin-user.store');
     },
     deletePermission: function deletePermission() {
-      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_2__["hasPermission"])('admin-user.destroy');
+      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_1__["hasPermission"])('admin-user.destroy');
     },
     assignRolePermission: function assignRolePermission() {
-      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_2__["hasPermission"])('admin-user.assign-roles');
+      return Object(_libs_permission__WEBPACK_IMPORTED_MODULE_1__["hasPermission"])('admin-user.assign-roles');
     }
   },
   created: function created() {
@@ -991,95 +986,6 @@ var staticRenderFns = []
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./resources/js/api/adminUser.js":
-/*!***************************************!*\
-  !*** ./resources/js/api/adminUser.js ***!
-  \***************************************/
-/*! exports provided: getAdminUserList, getUserRoles, assginRoles, addAdminUser, editAdminUser, deleteAdminUser */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAdminUserList", function() { return getAdminUserList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserRoles", function() { return getUserRoles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "assginRoles", function() { return assginRoles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addAdminUser", function() { return addAdminUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editAdminUser", function() { return editAdminUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteAdminUser", function() { return deleteAdminUser; });
-/* harmony import */ var _libs_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs/http */ "./resources/js/libs/http.js");
-
-var getAdminUserList = function getAdminUserList(params) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/admin-user', {
-    params: params
-  });
-};
-var getUserRoles = function getUserRoles(id, provider) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin-user/".concat(id, "/roles/").concat(provider));
-};
-var assginRoles = function assginRoles(id, provider, roles) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].put("/api/admin-user/".concat(id, "/roles/").concat(provider), {
-    roles: roles
-  });
-};
-var addAdminUser = function addAdminUser(data) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/admin-user', data);
-};
-var editAdminUser = function editAdminUser(id, data) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].patch("/api/admin-user/".concat(id), data);
-};
-var deleteAdminUser = function deleteAdminUser(id) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/admin-user/".concat(id));
-};
-
-/***/ }),
-
-/***/ "./resources/js/api/role.js":
-/*!**********************************!*\
-  !*** ./resources/js/api/role.js ***!
-  \**********************************/
-/*! exports provided: getRoleList, guardNameRoles, rolePermission, roleAssignPermission, addRole, editRole, deleteRole */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRoleList", function() { return getRoleList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "guardNameRoles", function() { return guardNameRoles; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rolePermission", function() { return rolePermission; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roleAssignPermission", function() { return roleAssignPermission; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addRole", function() { return addRole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editRole", function() { return editRole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRole", function() { return deleteRole; });
-/* harmony import */ var _libs_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../libs/http */ "./resources/js/libs/http.js");
-
-var basicRoute = '/api/role';
-var getRoleList = function getRoleList(params) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get(basicRoute, {
-    params: params
-  });
-};
-var guardNameRoles = function guardNameRoles(guardName) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/guard-name-roles/".concat(guardName));
-};
-var rolePermission = function rolePermission(id) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/role/".concat(id, "/permissions"));
-};
-var roleAssignPermission = function roleAssignPermission(id, permissions) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].put("/api/role/".concat(id, "/permissions"), {
-    permissions: permissions
-  });
-};
-var addRole = function addRole(data) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].post(basicRoute, data);
-};
-var editRole = function editRole(id, data) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"].patch("".concat(basicRoute, "/").concat(id), data);
-};
-var deleteRole = function deleteRole(id) {
-  return _libs_http__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("".concat(basicRoute, "/").concat(id));
-};
 
 /***/ }),
 

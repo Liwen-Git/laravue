@@ -110,7 +110,6 @@
 </template>
 
 <script>
-    import {getRoleList, addRole, editRole, deleteRole} from '../../../api/role'
     import {
         responseDataFormat,
         tableDefaultData,
@@ -164,21 +163,23 @@
                 this.dialogEditFormVisible = true
             },
             handleDelete(index, row) {
-                deleteRole(row.id).then(response => {
-                    deleteSuccess(index, this)
-                    this.requestData()
+                this.$http.delete(`/api/role/${row.id}`).then(() => {
+                    deleteSuccess(index, this);
+                    this.requestData();
                 })
             },
             requestData() {
                 this.loading = true
-                getRoleList({...this.queryParams, page: this.queryPage}).then(response => {
+                this.$http.get('/api/role', {
+                    params: {...this.queryParams, page: this.queryPage}
+                }).then(response => {
                     responseDataFormat(response, this)
                 })
             },
             handleAddRole() {
                 this.$refs['addForm'].validate((valid) => {
                     if (valid) {
-                        addRole(this.addForm).then(response => {
+                        this.$http.post('/api/role', this.addForm).then(response => {
                             addSuccess(this)
                             this.requestData()
                         })
@@ -190,7 +191,7 @@
             handleEditRole() {
                 this.$refs['editForm'].validate((valid) => {
                     if (valid) {
-                        editRole(this.nowRowData.row.id, this.editForm).then(response => {
+                        this.$http.patch(`/api/role/${this.nowRowData.row.id}`, this.editForm).then(response => {
                             editSuccess(this)
                         })
                     } else {

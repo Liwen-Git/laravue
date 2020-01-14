@@ -133,7 +133,7 @@
 <script>
     import Vue from 'vue'
     import GuardSelect from '../../../components/Select/Guard'
-    import {getMenuList, addMenu, editMenu, deleteMenu} from '../../../api/menu'
+    import qs from 'qs'
     import {tableDefaultData, editSuccess, addSuccess, deleteSuccess} from '../../../libs/tableDataHandle'
     import MenuCascader from '../../../components/Cascader/Menu'
     import {hasPermission} from '../../../libs/permission'
@@ -173,9 +173,9 @@
         }),
         methods: {
             handleDelete(index, row) {
-                deleteMenu(row.id).then(response => {
-                    deleteSuccess(index, this)
-                    this.requestData()
+                this.$http.delete(`/api/menu/${row.id}`).then(() => {
+                    deleteSuccess(index, this);
+                    this.requestData();
                 })
             },
             handleEdit(index, row) {
@@ -186,9 +186,9 @@
             handleEditMenu() {
                 this.$refs['editForm'].validate((valid) => {
                     if (valid) {
-                        editMenu(this.nowRowData.row.id, this.editForm).then(response => {
-                            editSuccess(this)
-                            this.requestData()
+                        this.$http.patch(`/api/menu/${this.nowRowData.row.id}`, qs.stringify(this.editForm)).then(() => {
+                            editSuccess(this);
+                            this.requestData();
                         })
                     } else {
                         return false;
@@ -198,9 +198,9 @@
             handleAddMenu() {
                 this.$refs['addForm'].validate((valid) => {
                     if (valid) {
-                        addMenu(this.addForm).then(response => {
-                            addSuccess(this)
-                            this.requestData()
+                        this.$http.post('/api/menu', this.addForm).then(() => {
+                            addSuccess(this);
+                            this.requestData();
                         })
                     } else {
                         return false;
@@ -243,10 +243,12 @@
                 return parent
             },
             requestData() {
-                this.loading = true
-                getMenuList(this.queryParams).then(response => {
-                    this.tableListData = this.formatConversion([], response.data.data)
-                    this.loading = false
+                this.loading = true;
+                this.$http.get('/api/menu', {
+                    params: this.queryParams
+                }).then(response => {
+                    this.tableListData = this.formatConversion([], response.data.data);
+                    this.loading = false;
                 })
             }
         },

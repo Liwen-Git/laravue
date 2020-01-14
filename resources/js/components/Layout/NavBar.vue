@@ -23,7 +23,6 @@
 
 <script>
     import NavItem from './NavItem'
-    import {myMenu} from '../../api/menu'
     import config from '../../config'
 
     export default {
@@ -40,7 +39,7 @@
             }
         },
         created() {
-            myMenu().then(response => {
+            this.$http.get('/api/my-menu').then(response => {
                 this.menuItems = response.data.data;
             })
         },
