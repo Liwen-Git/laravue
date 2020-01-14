@@ -17,10 +17,12 @@
                         <el-button :plain="true">
                             <img :src="adminAvatar"
                                  width="30" height="30" style="border-radius:30px">
+                            <span>{{username}}</span>
                             <i class="el-icon-arrow-down el-icon--right"></i>
                         </el-button>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native="openDialogChangePasswordForm">{{ $t('changePassword') }}
+                            <el-dropdown-item @click.native="openDialogChangePasswordForm">
+                                {{ $t('changePassword') }}
                             </el-dropdown-item>
                             <el-dropdown-item @click.native="logout">退 出</el-dropdown-item>
                         </el-dropdown-menu>
@@ -60,9 +62,10 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapState, mapActions} from 'vuex'
     import config from '../../config'
     import notify from '../../libs/notify'
+    import {getUsername} from "../../libs/auth";
 
     export default {
         name: 'Header',
@@ -102,7 +105,8 @@
                         {validator: confirmPassword},
                         {min: 8, max: 32}
                     ]
-                }
+                },
+                username: '',
             }
         },
         methods: {
@@ -141,6 +145,11 @@
             showAuthorGitHubUrl() {
                 return config.showAuthorGitHubUrl
             },
+        },
+        created() {
+            getUsername(this.$provider).then(res => {
+                this.username = res;
+            })
         }
     }
 </script>

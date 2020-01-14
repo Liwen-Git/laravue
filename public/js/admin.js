@@ -3491,6 +3491,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config */ "./resources/js/config/index.js");
 /* harmony import */ var _libs_notify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../libs/notify */ "./resources/js/libs/notify.js");
+/* harmony import */ var _libs_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../libs/auth */ "./resources/js/libs/auth.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3558,6 +3559,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+
 
 
 
@@ -3609,7 +3613,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           min: 8,
           max: 32
         }]
-      }
+      },
+      username: ''
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['logoutHandle']), {
@@ -3648,6 +3653,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     showAuthorGitHubUrl: function showAuthorGitHubUrl() {
       return _config__WEBPACK_IMPORTED_MODULE_1__["default"].showAuthorGitHubUrl;
     }
+  },
+  created: function created() {
+    var _this3 = this;
+
+    Object(_libs_auth__WEBPACK_IMPORTED_MODULE_3__["getUsername"])(this.$provider).then(function (res) {
+      _this3.username = res;
+    });
   }
 });
 
@@ -70256,6 +70268,8 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.username))]),
+                      _vm._v(" "),
                       _c("i", {
                         staticClass: "el-icon-arrow-down el-icon--right"
                       })
@@ -70276,7 +70290,8 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              _vm._s(_vm.$t("changePassword")) +
+                              "\n                            " +
+                                _vm._s(_vm.$t("changePassword")) +
                                 "\n                        "
                             )
                           ]
@@ -87528,7 +87543,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************!*\
   !*** ./resources/js/libs/auth.js ***!
   \***********************************/
-/*! exports provided: setToken, getToken, removeToken, getTokenKey, setPermissions, getPermissions, getPermissionKey */
+/*! exports provided: setToken, getToken, removeToken, getTokenKey, setPermissions, getPermissions, getPermissionKey, setUsername, getUsername, getUsernameKey */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87540,11 +87555,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setPermissions", function() { return setPermissions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPermissions", function() { return getPermissions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPermissionKey", function() { return getPermissionKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUsername", function() { return setUsername; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsername", function() { return getUsername; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsernameKey", function() { return getUsernameKey; });
 /* harmony import */ var localforage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! localforage */ "./node_modules/localforage/dist/localforage.js");
 /* harmony import */ var localforage__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(localforage__WEBPACK_IMPORTED_MODULE_0__);
 
 var TOKEN = 'token:';
 var PERMISSION = 'permissions:';
+var USERNAME = 'username:';
 var setToken = function setToken(token, provider) {
   return localforage__WEBPACK_IMPORTED_MODULE_0___default.a.setItem(getTokenKey(provider), token);
 };
@@ -87565,6 +87584,15 @@ var getPermissions = function getPermissions(provider) {
 };
 var getPermissionKey = function getPermissionKey(provider) {
   return PERMISSION + provider;
+};
+var setUsername = function setUsername(username, provider) {
+  return localforage__WEBPACK_IMPORTED_MODULE_0___default.a.setItem(getUsernameKey(provider), username);
+};
+var getUsername = function getUsername(provider) {
+  return localforage__WEBPACK_IMPORTED_MODULE_0___default.a.getItem(getUsernameKey(provider));
+};
+var getUsernameKey = function getUsernameKey(provider) {
+  return USERNAME + provider;
 };
 
 /***/ }),
@@ -88197,6 +88225,7 @@ var actions = {
           token: token,
           provider: provider
         });
+        Object(_libs_auth__WEBPACK_IMPORTED_MODULE_0__["setUsername"])(username, provider);
         resolve(Object(_libs_auth__WEBPACK_IMPORTED_MODULE_0__["setToken"])(token, provider));
       })["catch"](function (error) {
         reject(error);

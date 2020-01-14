@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Hello! Mojito Admin</h1>
+    <h1>Welcome!</h1>
 
   </div>
 </template>

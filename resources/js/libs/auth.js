@@ -1,8 +1,10 @@
 import localforage from 'localforage'
 
-const TOKEN = 'token:'
+const TOKEN = 'token:';
 
-const PERMISSION = 'permissions:'
+const PERMISSION = 'permissions:';
+
+const USERNAME = 'username:';
 
 export const setToken = (token, provider) => {
   return localforage.setItem(getTokenKey(provider), token)
@@ -30,4 +32,16 @@ export const getPermissions = (provider) => {
 
 export const getPermissionKey =  provider => {
   return PERMISSION + provider
+}
+
+export const setUsername = (username, provider) => {
+  return localforage.setItem(getUsernameKey(provider), username)
+}
+
+export const getUsername = (provider) => {
+  return localforage.getItem(getUsernameKey(provider))
+}
+
+export const getUsernameKey =  provider => {
+  return USERNAME + provider
 }
