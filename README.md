@@ -8,13 +8,18 @@ cp .env.example .env
 ```
 并配置.env中的mysql, redis，session, 队列 等。
 
-2.执行数据库迁移，数据填充
+2.生成APP_KEY
+```$xslt
+php artisan key:generate
+```
+
+3.执行数据库迁移，数据填充
 ```
 php artisan migrate
 php artisan db:seed --class="Moell\Mojito\Database\MojitoTableSeeder"
 ```
 
-3.passport 安装配置
+4.passport 安装配置
 ```
 php artisan passport:install
 ```
@@ -30,12 +35,22 @@ export default {
 }
 ```
 
-4.安装JavaScript依赖
+5.安装JavaScript依赖
 ```$xslt
 npm install
 ```
 
-5.运行Mix
+6.安装laravel依赖
+```$xslt
+composer install
+```
+
+7.`laravue/storage` 目录权限
+```$xslt
+chmod -R 777 storage/
+```
+
+8.运行Mix
 ```$xslt
 # 开发
 npm run watch
